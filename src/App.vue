@@ -1,47 +1,28 @@
-<script setup>
+<script>
 import { ref } from 'vue';
-const msg = ref('文本插值');
-const isButtonDisabled = ref(true);
-const dynamicId = ref('text');
-const rawHtml = ref('<span style="color: red">This should be red.</span>');
-const objectOfAttrs = {
-  id: 'container',
-  class: 'wrapper',
+
+export default {
+  // `setup` 是一个特殊的钩子，专门用于组合式 API。
+  setup() {
+    const count = ref(0);
+
+    function increment() {
+      // 在 JavaScript 中需要 .value
+      count.value++;
+    }
+    // 将count暴露给模板
+    return {
+      count,
+      increment,
+    };
+  },
 };
-
-const number = ref(0);
-const ok = ref(true);
-const message = ref('hello');
-const id = ref(0);
-
-const seen = ref(true);
 </script>
 
 <template>
-  <div>
-    <h1>模板语法</h1>
-    <h3>文本插值</h3>
-    <span>Message: {{ msg }}</span>
-    <h3>原始HTML</h3>
-    <p>Using text interpolation: {{ rawHtml }}</p>
-    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
-    <h3>Attribute绑定</h3>
-    <div v-bind:id="dynamicId"></div>
-    <div :id="dynamicId"></div>
-    <h3>布尔型Attribute</h3>
-    <button :disabled="isButtonDisabled">Button</button>
-    <h3>动态绑定多个值</h3>
-    <div v-bind="objectOfAttrs"></div>
-    <h1>使用JavaScript表达式</h1>
-    <span>{{ number + 1 }}</span>
-    <br />
-    {{ ok ? 'YES' : 'NO' }}
-    <br />{{ message.split('').reverse().join('') }}
-    <div :id="`list-${id}`"></div>
-    <h1>指令 Directives</h1>
-    <a v-if="seen">Now you see me</a>
-    <img src="https://cn.vuejs.org/assets/directive.69c37117.png" />
-  </div>
+  <div>{{ count }}</div>
+  <button @click="count++">按钮</button>
+  <button @click="increment">自增</button>
 </template>
 
 <style></style>
