@@ -1,28 +1,27 @@
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref, computed } from 'vue';
 
-export default {
-  // `setup` 是一个特殊的钩子，专门用于组合式 API。
-  setup() {
-    const count = ref(0);
+const firstName = ref('John');
+const lastName = ref('Doe');
 
-    function increment() {
-      // 在 JavaScript 中需要 .value
-      count.value++;
-    }
-    // 将count暴露给模板
-    return {
-      count,
-      increment,
-    };
+const fullName = computed({
+  // getter
+  get() {
+    return firstName.value + ' ' + lastName.value;
   },
-};
+  // setter
+  set(newValue) {
+    // 注意：我们这里使用的是解构赋值语法
+    [firstName.value, lastName.value] = newValue.split(' ');
+  },
+});
+
+function changeName(name) {
+  fullName.value = name;
+}
 </script>
 
 <template>
-  <div>{{ count }}</div>
-  <button @click="count++">按钮</button>
-  <button @click="increment">自增</button>
+  <span>{{ fullName }} ,{{ firstName }} ,{{ lastName }} </span>
+  <button @click="changeName('Lea Bing')">改名</button>
 </template>
-
-<style></style>

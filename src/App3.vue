@@ -1,17 +1,39 @@
 <script setup>
-import { reactive } from 'vue';
-// `setup` 是一个特殊的钩子，专门用于组合式 API。
-const state = reactive({ count: 0 });
-function increment() {
-  // 在 JavaScript 中需要 .value
-  state.count++;
+import { reactive, computed } from 'vue';
+
+const author = reactive({
+  name: 'John Doe',
+  books: [
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery',
+  ],
+});
+
+// 一个计算属性 ref
+// 每次访问都会被缓存
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 3 ? 'Yes' : 'No';
+});
+// const publishedBooksMessage = author.books.length > 3 ? 'Yes' : 'No';
+
+// 每次都需要重新计算
+function calculateBooksMessage() {
+  return author.books.length > 0 ? 'Yes' : 'No';
+}
+
+function addBook() {
+  author.books.push('BOok');
 }
 </script>
 
 <template>
-  <div>{{ state.count }}</div>
-  <button @click="state.count++">按钮</button>
-  <button @click="increment">自增</button>
+  <p>Has published books:</p>
+  ref：
+  <span>{{ publishedBooksMessage }}</span>
+  <br />
+  方法获取：
+  <span>{{ calculateBooksMessage() }}</span>
+  <br />
+  <button @click="addBook">添加📚</button>
 </template>
-
-<style></style>
