@@ -1,32 +1,26 @@
 <script setup>
 import { ref, computed, reactive } from 'vue';
-const awesome = ref(true);
-const type = ref('B');
-const ok = ref(true);
+
+const items = ref([{ message: 'Foo' }, { message: 'Bar' }]);
+const myObject = reactive({ name: 'LeaBing', age: 12 });
 </script>
 
 <template>
-  <h1>条件渲染 v-if</h1>
-  <h1 v-if="awesome">Vue is awesome!</h1>
+  <li v-for="item in items">
+    {{ item.message }}
+  </li>
+
   <hr />
-  <h1>条件渲染 v-else</h1>
-  <h1 v-if="awesome">Vue is awesome!</h1>
-  <h1 v-else>Oh no 😢</h1>
-  <button @click="awesome = !awesome">Toggle</button>
+  <span v-for="item in items">{{ item.message }} <br /></span>
   <hr />
-  <h1>条件渲染 v-else-if</h1>
-  <div v-if="type === 'A'">A</div>
-  <div v-else-if="type === 'B'">B</div>
-  <div v-else>NOT A/B</div>
+  <li v-for="(item, index) in items">{{ index }} - {{ item.message }}</li>
   <hr />
-  <h1>条件渲染 v-if template</h1>
-  <template v-if="ok">
-    <a>a</a>
-    <b>b</b>
-  </template>
+  <h1>v-for 与对象</h1>
+  <li v-for="(item, key, index) in myObject">
+    {{ index }} - {{ key }}-{{ item }}
+  </li>
   <hr />
-  <h1>条件渲染 v-show</h1>
-  <a v-show="awesome">awesome</a>
+  <h1></h1>
 </template>
 
 <style>
