@@ -1,31 +1,16 @@
 <script setup>
-import { ref, computed, reactive } from 'vue';
-
-const text = ref('Hello');
-const checked = ref(true);
-const checkedNames = ref([]);
+import Count from './components/Count.vue';
+import Blog from './components/Blog.vue';
 </script>
 
 <template>
-  <input :value="text" @input="(event) => (text = event.target.value)" />
-  <input v-model="text" />
+  <h1>Here is a child component!</h1>
+  <Count />
+  <Count />
+  <Count />
   <br />
-  <input v-model.lazy="text" />
-  <span>{{ text }}</span>
-  <hr />
-  <input type="checkbox" id="checkbox" v-model="checked" />
-  <label for="checkbox">{{ checked }}</label>
-  <hr />
-  <div>Checked names: {{ checkedNames }}</div>
-
-  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
-  <label for="jack">Jack</label>
-
-  <input type="checkbox" id="john" value="John" v-model="checkedNames" />
-  <label for="john">John</label>
-
-  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
-  <label for="mike">Mike</label>
+  <Blog title="你好吗" />
+  <Blog title="还好呀" />
 </template>
 
 <style></style>
