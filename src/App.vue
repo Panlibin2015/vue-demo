@@ -1,39 +1,38 @@
 <script setup>
 import { ref, computed, reactive } from 'vue';
+const count = ref(0);
+const name = ref('Vue.js');
 
-const items = ref([{ message: 'Foo' }, { message: 'Bar' }]);
-const myObject = reactive({ name: 'LeaBing', age: 12 });
+function greet(event) {
+  alert(`Hello ${name.value}!`);
+  // `event` 是 DOM 原生事件
+  if (event) {
+    alert(event.target.tagName);
+  }
+}
+
+function say(message) {
+  alert(message);
+}
+
+function warn(message, event) {
+  // 这里可以访问原生事件
+  if (event) {
+    event.preventDefault();
+  }
+  alert(message);
+}
 </script>
 
 <template>
-  <li v-for="item in items">
-    {{ item.message }}
-  </li>
-
-  <hr />
-  <span v-for="item in items">{{ item.message }} <br /></span>
-  <hr />
-  <li v-for="(item, index) in items">{{ index }} - {{ item.message }}</li>
-  <hr />
-  <h1>v-for 与对象</h1>
-  <li v-for="(item, key, index) in myObject">
-    {{ index }} - {{ key }}-{{ item }}
-  </li>
-  <hr />
-  <h1></h1>
+  <button @click="count++">按钮{{ count }}</button>
+  <button @click="greet()">Greet</button>
+  <button @click="say('Hello')">Say</button>
+  <button @click="warn('Say', $event)">Warn</button>
+  <!-- 使用内联箭头函数 -->
+  <button @click="(event) => warn('Form cannot be submitted yet.', event)">
+    Submit
+  </button>
 </template>
 
-<style>
-.fontStyle {
-  font-size: 45px;
-}
-
-.fontStyle2 {
-  font-size: 12px;
-}
-
-.active {
-  display: block;
-  color: red;
-}
-</style>
+<style></style>
